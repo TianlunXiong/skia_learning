@@ -1,5 +1,11 @@
 # skia 学习项目
 
+## 获取 ninja
+
+```
+skia/bin/fetch-ninja
+```
+
 ## MacOS 编译
 
 1. 安装 Xcode
