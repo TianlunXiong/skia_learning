@@ -17,3 +17,6 @@ skia/bin/fetch-ninja
 
 ## WASM 编译
 http://www.hikerpig.cn/2019-09-24-Compile-Skia-Canvaskit-WASM/
+
+## 参考资料
+[JS 绑定 WASM](https://developer.mozilla.org/zh-CN/docs/WebAssembly/C_to_wasm)
