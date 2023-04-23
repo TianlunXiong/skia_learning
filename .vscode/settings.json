@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "*.c": "c",
+    "*.scss": "scss",
+    "*.cjson": "jsonc",
+    "*.wxss": "css",
+    "*.wxs": "javascript",
+    "iostream": "cpp"
+  }
+}
