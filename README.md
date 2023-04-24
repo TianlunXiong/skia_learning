@@ -13,7 +13,7 @@
 ## 参考资料
 [EMSC embind](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/embind.html#embind)
 
-[EMSC 快速入门](https://www.cntofu.com/book/150/zh/ch2-c-js/ch2-05-em-asm.md)
+[EMSC 快速入门](https://www.cntofu.com/book/150/zh/ch1-quick-guide/readme.md)
 
 [JS 绑定 WASM](https://developer.mozilla.org/zh-CN/docs/WebAssembly/C_to_wasm)
 
