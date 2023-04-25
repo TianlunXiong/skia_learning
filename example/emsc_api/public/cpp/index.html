@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>emscripten_api</title>
+</head>
+
+<body>
+  <script type="module">
+    import Module from './index.mjs';
+
+    Module().then((instance) => {
+      [
+        add_demo,
+        ptr_demo,
+        str_demo,
+      ].forEach((func) => func(instance))
+    });
+
+    function add_demo(instance) {
+      append(`add(1, 2)方法结果为: ${instance.add(1, 2)}`);
+    }
+
+    function ptr_demo(instance) {
+      const ptr = instance._get_global_foo_ptr();
+      
+      append(`global_foo 的地址为: ${ptr}, 值为: ${instance.HEAP32[ptr >> 2]}`);
+
+      const ptr_of_ = instance._fibonacci(10);
+
+      let str = '';
+      for (let i = 0; i < 10; i += 1) {
+        str += instance.HEAP32[(ptr_of_ >> 2) + i] + '  ';
+      }
+
+      append(`fibonacci(10)为: ${str}`);
+    }
+
+    function str_demo(instance) {
+      const ptr = instance._get_str();
+
+      append(`str 为: ${instance.UTF8ToString(ptr)}`);
+    }
+
+    function append(str) {
+      const div = document.createElement('div');
+
+      div.innerText = str;
+
+      document.body.appendChild(div);
+    }
+  </script>
+</body>
+
+</html>
