@@ -27,7 +27,7 @@ Module['ready'] = new Promise(function(resolve, reject) {
   readyPromiseResolve = resolve;
   readyPromiseReject = reject;
 });
-["_main","_get_global_foo_ptr","_fibonacci","_get_str","___getTypeName","__embind_initialize_bindings","_fflush","onRuntimeInitialized"].forEach((prop) => {
+["_main","_get_global_foo_ptr","_fibonacci","_get_str","_print_str","___getTypeName","__embind_initialize_bindings","_fflush","onRuntimeInitialized"].forEach((prop) => {
   if (!Object.getOwnPropertyDescriptor(Module['ready'], prop)) {
     Object.defineProperty(Module['ready'], prop, {
       get: () => abort('You are getting ' + prop + ' on the Promise object, instead of the instance. Use .then() to get called back with the instance, see the MODULARIZE docs in src/settings.js'),
@@ -5060,6 +5060,15 @@ function dbg(text) {
     }
 
 
+  
+  /** @suppress {duplicate } */
+  function stringToNewUTF8(str) {
+      var size = lengthBytesUTF8(str) + 1;
+      var ret = _malloc(size);
+      if (ret) stringToUTF8(str, ret, size);
+      return ret;
+    }
+  var allocateUTF8 = stringToNewUTF8;
 embind_init_charCodes();
 BindingError = Module['BindingError'] = extendError(Error, 'BindingError');;
 InternalError = Module['InternalError'] = extendError(Error, 'InternalError');;
@@ -5272,6 +5281,8 @@ var _malloc = createExportWrapper("malloc");
 /** @type {function(...*):?} */
 var _get_str = Module["_get_str"] = createExportWrapper("get_str");
 /** @type {function(...*):?} */
+var _print_str = Module["_print_str"] = createExportWrapper("print_str");
+/** @type {function(...*):?} */
 var ___getTypeName = Module["___getTypeName"] = createExportWrapper("__getTypeName");
 /** @type {function(...*):?} */
 var __embind_initialize_bindings = Module["__embind_initialize_bindings"] = createExportWrapper("_embind_initialize_bindings");
@@ -5313,9 +5324,9 @@ var _emscripten_stack_get_current = function() {
 };
 
 /** @type {function(...*):?} */
-var dynCall_viijii = Module["dynCall_viijii"] = createExportWrapper("dynCall_viijii");
-/** @type {function(...*):?} */
 var dynCall_jiji = Module["dynCall_jiji"] = createExportWrapper("dynCall_jiji");
+/** @type {function(...*):?} */
+var dynCall_viijii = Module["dynCall_viijii"] = createExportWrapper("dynCall_viijii");
 /** @type {function(...*):?} */
 var dynCall_iiiiij = Module["dynCall_iiiiij"] = createExportWrapper("dynCall_iiiiij");
 /** @type {function(...*):?} */
@@ -5328,7 +5339,7 @@ var dynCall_iiiiiijj = Module["dynCall_iiiiiijj"] = createExportWrapper("dynCall
 // === Auto-generated postamble setup entry stuff ===
 
 Module["UTF8ToString"] = UTF8ToString;
-Module["stringToUTF8"] = stringToUTF8;
+Module["allocateUTF8"] = allocateUTF8;
 var missingLibrarySymbols = [
   'exitJS',
   'emscripten_realloc_buffer',
@@ -5390,7 +5401,6 @@ var missingLibrarySymbols = [
   'formatString',
   'intArrayToString',
   'AsciiToString',
-  'stringToNewUTF8',
   'stringToUTF8OnStack',
   'getSocketFromFD',
   'getSocketAddress',
@@ -5600,6 +5610,7 @@ var unexportedSymbols = [
   'UTF8Decoder',
   'UTF8ArrayToString',
   'stringToUTF8Array',
+  'stringToUTF8',
   'lengthBytesUTF8',
   'intArrayFromString',
   'stringToAscii',
@@ -5610,6 +5621,7 @@ var unexportedSymbols = [
   'UTF32ToString',
   'stringToUTF32',
   'lengthBytesUTF32',
+  'stringToNewUTF8',
   'writeArrayToMemory',
   'SYSCALLS',
   'JSEvents',
@@ -5647,7 +5659,6 @@ var unexportedSymbols = [
   'SDL',
   'SDL_gfx',
   'GLFW',
-  'allocateUTF8',
   'allocateUTF8OnStack',
   'InternalError',
   'BindingError',

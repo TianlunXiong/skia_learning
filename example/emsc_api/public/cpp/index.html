@@ -42,7 +42,9 @@
     function str_demo(instance) {
       const ptr = instance._get_str();
 
-      append(`str 为: ${instance.UTF8ToString(ptr)}`);
+      append(`读取 str 为: ${instance.UTF8ToString(ptr)}`);
+
+      instance._print_str(instance.allocateUTF8("从 JS 字符串在 C++ 中打印", ))
     }
 
     function append(str) {
